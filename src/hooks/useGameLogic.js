@@ -37,10 +37,12 @@ export const useGameLogic = (cardValues) => {
 
     if (!firstCard) return;
 
+    const newMoves = moves + 1;
     setIsLocked(true);
-    setMoves((prev) => prev + 1);
+    setMoves(newMoves);
 
     if (firstCard.value === card.value) {
+      const matchPoints = Math.max(50 - newMoves * 2, 5);
       setTimeout(() => {
         setCards((prev) =>
           prev.map((c) =>
@@ -49,7 +51,7 @@ export const useGameLogic = (cardValues) => {
               : c,
           ),
         );
-        setScore((prev) => prev + 1);
+        setScore((prev) => prev + matchPoints);
         setIsLocked(false);
       }, 500);
     } else {
